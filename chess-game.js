@@ -302,20 +302,15 @@ function selectPiece(thing) {
     if (variables.pieceSelected == "") {
         // No piece currently selected
         variables.pieceSelected = thing.id;
-        console.log("Piece Selected")
     } else if (variables.pieceSelected == thing.id) {
         // Selected is currently selected
         variables.pieceSelected = "";
-        console.log("Piece unselected")
     } else {
         // Different piece selected
-        console.log("Piece selected")
         document.getElementById(variables.pieceSelected).classList.toggle("selected")
         variables.pieceSelected = thing.id;
     }
     thing.classList.toggle("selected");
-    
-    console.log(variables.pieceSelected)
 
     // var stuff = document.getElementsByClassName("selected").classList;
 };
