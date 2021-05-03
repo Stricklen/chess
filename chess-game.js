@@ -299,24 +299,51 @@ function getPosition(thing) {
 };
 
 function selectPiece(thing) {
-    if (variables.pieceSelected == "") {
-        // No piece currently selected
-        variables.pieceSelected = thing.id;
-    } else if (variables.pieceSelected == thing.id) {
-        // Selected is currently selected
-        variables.pieceSelected = "";
-    } else {
-        // Different piece selected
-        document.getElementById(variables.pieceSelected).classList.toggle("selected")
-        variables.pieceSelected = thing.id;
+    function toggleSelect() {
+        // Toggling selection of piece
+        if (variables.pieceSelected == "") {
+            // No piece currently selected
+            variables.pieceSelected = thing.id;
+        } else if (variables.pieceSelected == thing.id) {
+            // Selected is currently selected
+            variables.pieceSelected = "";
+        } else {
+            // Different piece selected
+            document.getElementById(variables.pieceSelected).classList.toggle("selected")
+            variables.pieceSelected = thing.id;
+        }
+        thing.classList.toggle("selected");
     }
-    thing.classList.toggle("selected");
 
-    // var stuff = document.getElementsByClassName("selected").classList;
+    function listenForMove() {
+        // Add event listener to all gamecells
+        var squares = document.getElementsByClassName("gamecell");
+        for (var i = 0; i < squares.length; i++) {
+            squares[i].addEventListener("click", movePiece());
+        }
+    }
+
+    function forgetListen(){
+        var squares = document.getElementsByClassName("gamecell");
+        for (var i = 0; i < squares.length; i++) {
+            squares[i].removeEventListener("click", movePiece);
+        }
+    }
+
+    toggleSelect();
+
+    // If a piece is selected, listen for move choice
+    if (variables.pieceSelected !== "") {
+        listenForMove();
+        console.log("Listening");
+    } else {
+        forgetListen();
+        console.log("Waiting");
+    }
 };
 
-function movePiece(pos) {
-    console.log(pos)
+function movePiece(current, destination) {
+    console.log("Event")
 };
 
 function main() {
