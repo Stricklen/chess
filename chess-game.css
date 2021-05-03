@@ -1,0 +1,63 @@
+.container {
+    justify-content: unset;
+}
+
+.chess-board {
+    margin: 0;
+    padding: 0;
+    width: 770px;
+    height: 693px;
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+}
+
+.cellLabel {
+    width: 75px;
+    padding: 0;
+    height: 75px;
+    float: left;
+    text-align: center;
+    font-size: 2.1rem;
+    margin: 1px;
+    padding: 25px 0 0 0;
+}
+
+.light {
+    background-color: beige;
+}
+
+.dark {
+    background-color: rgb(172, 153, 135);
+}
+
+.gamecell {
+    border: 2px solid #222;
+    width: 75px;
+    height: 75px;
+    float: left;
+    margin: 1px;
+    transition: all 0.15s ease-in-out;
+    border-radius: 3px;
+    padding: 0;
+    font-size: 30pt;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.gamecell:hover {
+    border-color: crimson;
+}
+
+.piece {
+    transition: all 0.15s ease-in-out;
+}
+
+.piece:hover {
+    background-color: rgba(255, 10, 30, 0.3);
+}
+
+img {
+    width: 75px;
+    height: 75px;
+}

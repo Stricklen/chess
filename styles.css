@@ -1,0 +1,81 @@
+:root {
+    background-color: rgb(250, 255, 245);
+    font-size: 62.5%;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: 333;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 12rem;
+    color: rgb(90, 45, 10);
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+}
+
+h3 {
+    font-size: 3rem;
+    font-weight: 400;
+}
+
+/* UTILITES */
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.chess-title {
+    text-align: center;
+}
+
+.usernames {
+    text-align: center;
+}
+
+.username {
+    display: flex;
+    text-align: center;
+    font-size: 2.4rem;
+    width: 20rem;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+
+.btn {
+    display: flex;
+    width: auto;
+    text-decoration: none;
+    border: .5rem solid rgb(90, 45, 10);
+    color: rgb(90, 45, 10); 
+    font-weight: 300;
+    font-size: 2.4rem;
+    background-color: white;
+    padding: .8rem 2.6rem;
+    margin: 1rem;
+}
+
+.btn:hover {
+    cursor: pointer;
+    box-shadow: 0 0.4rem 1.4rem 0 rgb(90, 45, 10, .5);
+    transform: translate(-.1rem);
+}

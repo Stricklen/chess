@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Menu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="chess-title">
+            <h1>Chess</h1>
+            <h2>Welcome to my Chess Game</h2>
+        </div>
+        <div class="usernames">
+            <input type="text" class="username" id="player1" placeholder="Player 1">
+            <h3 id="versus">vs</h3>
+            <input type="text" class="username" id="player2" placeholder="Player 2">
+        </div>
+        <a href="/chess-game.html" class="btn" id="play-btn" onclick="fetchNames()">PLAY!</a>
+    </div>
+    <script>
+        function fetchNames() {
+            var user1 = document.getElementById("player1").value;
+            localStorage.setItem("player-1", user1);
+            var user2 = document.getElementById("player2").value;
+            localStorage.setItem("player-2", user2);
+        };
+    </script>
+</body>
+</html>
