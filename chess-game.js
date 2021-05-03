@@ -22,112 +22,112 @@ let variables = {
             startPosition: "a_2",
             position: "a_2",
             img: "/pieces/wPawn.png",
-            piece: "pawn-white-1",
+            piece: "white_pawn_1",
             captured: false,
         },
         w_pawn2: {
             startPosition: "b_2",
             position: "b_2",
             img: "/pieces/wPawn.png",
-            piece: "pawn-white-2",
+            piece: "white_pawn_2",
             captured: false,
         },
         w_pawn3: {
             startPosition: "c_2",
             position: "c_2",
             img: "/pieces/wPawn.png",
-            piece: "pawn-white-3",
+            piece: "white_pawn_3",
             captured: false,
         },
         w_pawn4: {
             startPosition: "d_2",
             position: "d_2",
             img: "/pieces/wPawn.png",
-            piece: "pawn-white-4",
+            piece: "white_pawn_4",
             captured: false,
         },
         w_pawn5: {
             startPosition: "e_2",
             position: "e_2",
             img: "/pieces/wPawn.png",
-            piece: "pawn-white-5",
+            piece: "white_pawn_5",
             captured: false,
         },
         w_pawn6: {
             startPosition: "f_2",
             position: "f_2",
             img: "/pieces/wPawn.png",
-            piece: "pawn-white-6",
+            piece: "white_pawn_6",
             captured: false,
         },
         w_pawn7: {
             startPosition: "g_2",
             position: "g_2",
             img: "/pieces/wPawn.png",
-            piece: "pawn-white-7",
+            piece: "white_pawn_7",
             captured: false,
         },
         w_pawn8: {
             startPosition: "h_2",
             position: "h_2",
             img: "/pieces/wPawn.png",
-            piece: "pawn-white-8",
+            piece: "white_pawn_8",
             captured: false,
         },
         w_rook1: {
             startPosition: "a_1",
             position: "a_1",
             img: "/pieces/wRook.png",
-            piece: "rook-white-1",
+            piece: "white_rook_1",
             captured: false,
         },
         w_rook2: {
             startPosition: "h_1",
             position: "h_1",
             img: "/pieces/wRook.png",
-            piece: "rook-white-2",
+            piece: "white_rook_2",
             captured: false,
         },
         w_knight1: {
             startPosition: "b_1",
             position: "b_1",
             img: "/pieces/wKnight.png",
-            piece: "knight-white-1",
+            piece: "white_knight_1",
             captured: false,
         },
         w_knight2: {
             startPosition: "g_1",
             position: "g_1",
             img: "/pieces/wKnight.png",
-            piece: "knight-white-2",
+            piece: "white_knight_2",
             captured: false,
         },
         w_bishop1: {
             startPosition: "c_1",
             position: "c_1",
             img: "/pieces/wBishop.png",
-            piece: "bishop-white-1",
+            piece: "white_bishop_1",
             captured: false,
         },
         w_bishop2: {
             startPosition: "f_1",
             position: "f_1",
             img: "/pieces/wBishop.png",
-            piece: "bishop-white-2",
+            piece: "white_bishop_2",
             captured: false,
         },
         w_queen: {
             startPosition: "d_1",
             position: "d_1",
             img: "/pieces/wQueen.png",
-            piece: "queen-white",
+            piece: "white_queen",
             captured: false,
         },
         w_king: {
             startPosition: "e_1",
             position: "e_1",
             img: "/pieces/wKing.png",
-            piece: "king-white",
+            piece: "white_king",
             captured: false,
         },
         b_pawn1: {
@@ -188,58 +188,58 @@ let variables = {
         },
         b_rook1: {
             startPosition: "a_8",
-            position: [1,8],
+            position: "a_8",
             img: "/pieces/bRook.png",
             piece: "rook-black-1",
             captured: false,
         },
         b_rook2: {
             startPosition: "h_8",
-            position: ["h",8],
+            position: "h_8",
             img: "/pieces/bRook.png",
             piece: "rook-black-1",
             captured: false,
         },
         b_knight1: {
             startPosition: "b_8",
-            position: ["b",8],
+            position: "b_8",
             img: "/pieces/bKnight.png",
-            piece: "knight-black-1",
+            piece: "knight_black_1",
             captured: false,
         },
         b_knight2: {
             startPosition: "g_8",
-            position: ["g",8],
+            position: "g_8",
             img: "/pieces/bKnight.png",
-            piece: "knight-black-1",
+            piece: "knight_black_1",
             captured: false,
         },
         b_bishop1: {
             startPosition: "c_8",
-            position: ["c",8],
+            position: "c_8",
             img: "/pieces/bBishop.png",
-            piece: "bishop-black-1",
+            piece: "bishop_black_1",
             captured: false,
         },
         b_bishop2: {
             startPosition: "f_8",
-            position: ["f",8],
+            position: "f_8",
             img: "/pieces/bBishop.png",
-            piece: "bishop-black-1",
+            piece: "bishop_black_1",
             captured: false,
         },
         b_queen: {
             startPosition: "d_8",
-            position: ["d",8],
+            position: "d_8",
             img: "/pieces/bQueen.png",
-            piece: "queen-black-1",
+            piece: "queen_black",
             captured: false,
         },
         b_king: {
             startPosition: "e_8",
-            position: ["e",8],
+            position: "e_8",
             img: "/pieces/bKing.png",
-            piece: "king-black-1",
+            piece: "king_black",
             captured: false,
         }
     },
@@ -247,11 +247,14 @@ let variables = {
 
 function loadPieces() {
     for (let gamepiece in variables.pieces) {
+        // Finding the starting square for each piece
         var square = document.getElementById(variables.pieces[gamepiece].startPosition);
+
+        // Creating div inside starting square
         var newDiv = document.createElement("div");
         newDiv.classList.add("piece");
         newDiv.id = variables.pieces[gamepiece].piece;
-        newDiv.setAttribute("onclick", `selectPiece(${variables.pieces[gamepiece].startPosition})`)
+        newDiv.setAttribute("onclick", `selectPiece(${variables.pieces[gamepiece].piece})`)
         newDiv.style.width = "100%";
         newDiv.style.height = "100%";
 
@@ -270,6 +273,9 @@ function getPosition(thing) {
 function selectPiece(thing) {
     thing.classList.toggle("selected");
     console.log(thing);
+
+    var stuff = document.getElementsByClassName("selected").classList;
+    console.log("Selected: " + stuff);
 };
 
 function movePiece(pos) {
