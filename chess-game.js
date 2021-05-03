@@ -342,7 +342,7 @@ function selectPiece(thing) {
     }
 };
 
-function movePiece() {
+function movePiece(current, destination) {
     console.log("Event")
 };
 
