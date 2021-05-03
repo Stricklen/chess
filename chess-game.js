@@ -15,7 +15,7 @@ function setUsers() {
 let variables = {
     turn: "w",
     isSelected: false,
-    pieceSelected: " ",
+    pieceSelected: "",
     availableSquares: [],
     pieces: {
         w_pawn1: {
@@ -23,6 +23,7 @@ let variables = {
             position: "a_2",
             img: "/pieces/wPawn.png",
             piece: "white_pawn_1",
+            side: "white",
             captured: false,
         },
         w_pawn2: {
@@ -30,6 +31,7 @@ let variables = {
             position: "b_2",
             img: "/pieces/wPawn.png",
             piece: "white_pawn_2",
+            side: "white",
             captured: false,
         },
         w_pawn3: {
@@ -37,6 +39,7 @@ let variables = {
             position: "c_2",
             img: "/pieces/wPawn.png",
             piece: "white_pawn_3",
+            side: "white",
             captured: false,
         },
         w_pawn4: {
@@ -72,6 +75,7 @@ let variables = {
             position: "h_2",
             img: "/pieces/wPawn.png",
             piece: "white_pawn_8",
+            side: "white",
             captured: false,
         },
         w_rook1: {
@@ -79,6 +83,7 @@ let variables = {
             position: "a_1",
             img: "/pieces/wRook.png",
             piece: "white_rook_1",
+            side: "white",
             captured: false,
         },
         w_rook2: {
@@ -86,6 +91,7 @@ let variables = {
             position: "h_1",
             img: "/pieces/wRook.png",
             piece: "white_rook_2",
+            side: "white",
             captured: false,
         },
         w_knight1: {
@@ -93,6 +99,7 @@ let variables = {
             position: "b_1",
             img: "/pieces/wKnight.png",
             piece: "white_knight_1",
+            side: "white",
             captured: false,
         },
         w_knight2: {
@@ -100,6 +107,7 @@ let variables = {
             position: "g_1",
             img: "/pieces/wKnight.png",
             piece: "white_knight_2",
+            side: "white",
             captured: false,
         },
         w_bishop1: {
@@ -107,6 +115,7 @@ let variables = {
             position: "c_1",
             img: "/pieces/wBishop.png",
             piece: "white_bishop_1",
+            side: "white",
             captured: false,
         },
         w_bishop2: {
@@ -114,6 +123,7 @@ let variables = {
             position: "f_1",
             img: "/pieces/wBishop.png",
             piece: "white_bishop_2",
+            side: "white",
             captured: false,
         },
         w_queen: {
@@ -121,6 +131,7 @@ let variables = {
             position: "d_1",
             img: "/pieces/wQueen.png",
             piece: "white_queen",
+            side: "white",
             captured: false,
         },
         w_king: {
@@ -128,118 +139,135 @@ let variables = {
             position: "e_1",
             img: "/pieces/wKing.png",
             piece: "white_king",
+            side: "white",
             captured: false,
         },
         b_pawn1: {
             startPosition: "a_7",
             position: "a_7",
             img: "/pieces/bPawn.png",
-            piece: "pawn-black-1",
+            piece: "black_pawn_1",
+            side: "black",
             captured: false,
         },
         b_pawn2: {
             startPosition: "b_7",
             position: "b_7",
             img: "/pieces/bPawn.png",
-            piece: "pawn-black-1",
+            piece: "black_pawn_2",
+            side: "black",
             captured: false,
         },
         b_pawn3: {
             startPosition: "c_7",
             position: "c_7",
             img: "/pieces/bPawn.png",
-            piece: "pawn-black-1",
+            piece: "black_pawn_3",
+            side: "black",
             captured: false,
         },
         b_pawn4: {
             startPosition: "d_7",
             position: "d_7",
             img: "/pieces/bPawn.png",
-            piece: "pawn-black-1",
+            piece: "black_pawn_4",
+            side: "black",
             captured: false,
         },
         b_pawn5: {
             startPosition: "e_7",
             position: "e_7",
             img: "/pieces/bPawn.png",
-            piece: "pawn-black-1",
+            piece: "black_pawn_5",
+            side: "black",
             captured: false,
         },
         b_pawn6: {
             startPosition: "f_7",
             position: "f_7",
             img: "/pieces/bPawn.png",
-            piece: "pawn-black-1",
+            piece: "black_pawn_6",
+            side: "black",
             captured: false,
         },
         b_pawn7: {
             startPosition: "g_7",
             position: "g_7",
             img: "/pieces/bPawn.png",
-            piece: "pawn-black-1",
+            piece: "black_pawn_7",
+            side: "black",
             captured: false,
         },
         b_pawn8: {
             startPosition: "h_7",
             position: "h_7",
             img: "/pieces/bPawn.png",
-            piece: "pawn-black-1",
+            piece: "black_pawn_8",
+            side: "black",
             captured: false,
         },
         b_rook1: {
             startPosition: "a_8",
             position: "a_8",
             img: "/pieces/bRook.png",
-            piece: "rook-black-1",
+            piece: "black_rook_1",
+            side: "black",
             captured: false,
         },
         b_rook2: {
             startPosition: "h_8",
             position: "h_8",
             img: "/pieces/bRook.png",
-            piece: "rook-black-1",
+            piece: "black_rook_2",
+            side: "black",
             captured: false,
         },
         b_knight1: {
             startPosition: "b_8",
             position: "b_8",
             img: "/pieces/bKnight.png",
-            piece: "knight_black_1",
+            piece: "black_knight_1",
+            side: "black",
             captured: false,
         },
         b_knight2: {
             startPosition: "g_8",
             position: "g_8",
             img: "/pieces/bKnight.png",
-            piece: "knight_black_1",
+            piece: "black_knight_2",
+            side: "black",
             captured: false,
         },
         b_bishop1: {
             startPosition: "c_8",
             position: "c_8",
             img: "/pieces/bBishop.png",
-            piece: "bishop_black_1",
+            piece: "black_bishop_1",
+            side: "black",
             captured: false,
         },
         b_bishop2: {
             startPosition: "f_8",
             position: "f_8",
             img: "/pieces/bBishop.png",
-            piece: "bishop_black_1",
+            piece: "black_bishop_2",
+            side: "black",
             captured: false,
         },
         b_queen: {
             startPosition: "d_8",
             position: "d_8",
             img: "/pieces/bQueen.png",
-            piece: "queen_black",
+            piece: "black_queen",
+            side: "black",
             captured: false,
         },
         b_king: {
             startPosition: "e_8",
             position: "e_8",
             img: "/pieces/bKing.png",
-            piece: "king_black",
+            piece: "black_king",
+            side: "black",
             captured: false,
         }
     },
@@ -271,11 +299,25 @@ function getPosition(thing) {
 };
 
 function selectPiece(thing) {
+    if (variables.pieceSelected == "") {
+        // No piece currently selected
+        variables.pieceSelected = thing.id;
+        console.log("Piece Selected")
+    } else if (variables.pieceSelected == thing.id) {
+        // Selected is currently selected
+        variables.pieceSelected = "";
+        console.log("Piece unselected")
+    } else {
+        // Different piece selected
+        console.log("Piece selected")
+        document.getElementById(variables.pieceSelected).classList.toggle("selected")
+        variables.pieceSelected = thing.id;
+    }
     thing.classList.toggle("selected");
-    console.log(thing);
+    
+    console.log(variables.pieceSelected)
 
-    var stuff = document.getElementsByClassName("selected").classList;
-    console.log("Selected: " + stuff);
+    // var stuff = document.getElementsByClassName("selected").classList;
 };
 
 function movePiece(pos) {
