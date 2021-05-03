@@ -57,6 +57,10 @@
     background-color: rgba(255, 10, 30, 0.3);
 }
 
+.selected {
+    background-color: rgba(0, 255, 0, 0.7);
+}
+
 img {
     width: 75px;
     height: 75px;
