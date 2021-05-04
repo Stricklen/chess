@@ -48,6 +48,7 @@ let variables = {
             position: "d_2",
             img: "/pieces/wPawn.png",
             piece: "w_pawn4",
+            side: "white",
             captured: false,
         },
         w_pawn5: {
@@ -287,7 +288,6 @@ function loadPieces() {
         newDiv.classList.add("piece");
         newDiv.classList.add(variables.pieces[gamepiece].side);
         newDiv.id = variables.pieces[gamepiece].piece;
-        newDiv.setAttribute("onclick", `selectPiece(${variables.pieces[gamepiece].piece})`)
         newDiv.style.width = "100%";
         newDiv.style.height = "100%";
 
@@ -297,10 +297,6 @@ function loadPieces() {
         square.appendChild(newDiv);
         newDiv.appendChild(img)
     }
-};
-
-function getPosition(thing) {
-    
 };
 
 function listenForMove() {
@@ -318,7 +314,9 @@ function forgetListen(){
     }
 };
 
-function selectPiece(thing) {
+function selectPiece(evt) {
+    var thing = evt.target.parentElement
+
     function toggleSelect() {
         // Toggling selection of piece
         if (variables.pieceSelected == "") {
@@ -373,13 +371,6 @@ function movePiece(evt) {
     }
 };
 
-function addDestinationOnClick(){
-    var squares = document.getElementsByClassName("gamecell")
-    for (var i=0; i < squares.length; i++) {
-        squares[i].addEventListener("click", variables.destination = squares[i])
-    }
-}
-
 function squareAvailablity(){
     var squares = document.getElementsByClassName("gamecell")
     for (var i=0; i < squares.length; i++) {
@@ -388,25 +379,45 @@ function squareAvailablity(){
         } else {
             squares[i].classList.remove("free")
         }
+    };
+
+    var cancapture = document.getElementsByClassName(whoseTurn())
+    for (var i=0; i < cancapture.length; i++) {
+        cancapture[i].parentElement.classList.add("free")
     }
+    
+    // console.log(`${whoseTurn()} can be catured`)
 }
 
+function whoseTurn() {
+    var turnnum = variables.turnnumber;
 
+    if (turnnum % 2 == 0) {
+        return "black";
+    } else {
+        return "white";
+    };
+}
 
 function nextTurnCalc() {
     variables.turnnumber ++;
-
-    var turnnum = variables.turnnumber;
-    var whoseturn = "";
-
-    if (turnnum % 2 == 0) {
-        whoseturn = "black"
-    } else {
-        whoseturn = "white"
-    };
+    var pieces = document.getElementsByClassName("piece");
+    for (i=0; i < pieces.length; i++) {
+        pieces[i].removeEventListener("click", selectPiece)
+    }
     
-    console.log(`Turn: ${whoseturn}`);
+
+    var nextturn = whoseTurn();
+
+    var availablepieces = document.getElementsByClassName(nextturn);
+    for (i=0; i < availablepieces.length; i++) {
+        availablepieces[i].addEventListener("click", selectPiece);
+        console.log("hello")
+    }
+
+    // console.log(`Turn: ${nextturn}`);
 }
+
 
 function main() {
     setUsers();
