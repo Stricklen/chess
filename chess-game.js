@@ -55,6 +55,7 @@ let variables = {
             position: "e_2",
             img: "/pieces/wPawn.png",
             piece: "w_pawn5",
+            side: "white",
             captured: false,
         },
         w_pawn6: {
@@ -62,6 +63,7 @@ let variables = {
             position: "f_2",
             img: "/pieces/wPawn.png",
             piece: "w_pawn6",
+            side: "white",
             captured: false,
         },
         w_pawn7: {
@@ -69,6 +71,7 @@ let variables = {
             position: "g_2",
             img: "/pieces/wPawn.png",
             piece: "w_pawn7",
+            side: "white",
             captured: false,
         },
         w_pawn8: {
@@ -282,6 +285,7 @@ function loadPieces() {
         // Creating div inside starting square
         var newDiv = document.createElement("div");
         newDiv.classList.add("piece");
+        newDiv.classList.add(variables.pieces[gamepiece].side);
         newDiv.id = variables.pieces[gamepiece].piece;
         newDiv.setAttribute("onclick", `selectPiece(${variables.pieces[gamepiece].piece})`)
         newDiv.style.width = "100%";
@@ -360,12 +364,12 @@ function movePiece(evt) {
     }
 
     function endTurn(){
-        forgetListen()
-        squareAvailablity()
-        var movedpiece = document.getElementById(variables.pieceSelected)
-        movedpiece.classList.remove("selected")
+        forgetListen();
+        squareAvailablity();
+        var movedpiece = document.getElementById(variables.pieceSelected);
+        movedpiece.classList.remove("selected");
         variables.pieceSelected = "";
-        variables.turnnumber ++;
+        nextTurnCalc();
     }
 };
 
@@ -387,10 +391,28 @@ function squareAvailablity(){
     }
 }
 
+
+
+function nextTurnCalc() {
+    variables.turnnumber ++;
+
+    var turnnum = variables.turnnumber;
+    var whoseturn = "";
+
+    if (turnnum % 2 == 0) {
+        whoseturn = "black"
+    } else {
+        whoseturn = "white"
+    };
+    
+    console.log(`Turn: ${whoseturn}`);
+}
+
 function main() {
     setUsers();
     loadPieces();
     squareAvailablity();
+    nextTurnCalc();
 };
 
 main();
