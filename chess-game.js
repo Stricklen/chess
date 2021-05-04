@@ -17,7 +17,6 @@ let variables = {
     turnnumber: 0,
     isSelected: false,
     pieceSelected: "",
-    destination: "",
     availableSquares: [],
     pieces: {
         w_pawn1: {
@@ -300,6 +299,21 @@ function getPosition(thing) {
     
 };
 
+function listenForMove() {
+    // Add event listener to all gamecells
+    var squares = document.getElementsByClassName("free");
+    for (var i = 0; i < squares.length; i++) {
+        squares[i].addEventListener("click", movePiece);
+    }
+};
+
+function forgetListen(){
+    var squares = document.getElementsByClassName("gamecell");
+    for (var i = 0; i < squares.length; i++) {
+        squares[i].removeEventListener("click", movePiece);
+    }
+};
+
 function selectPiece(thing) {
     function toggleSelect() {
         // Toggling selection of piece
@@ -317,41 +331,42 @@ function selectPiece(thing) {
         thing.classList.toggle("selected");
     }
 
-    function listenForMove() {
-        // Add event listener to all gamecells
-        var squares = document.getElementsByClassName("free");
-        for (var i = 0; i < squares.length; i++) {
-            squares[i].addEventListener("click", () => {variables.destination = squares[i]})
-            squares[i].addEventListener("click", movePiece);
-        }
-    };
-
-    function forgetListen(){
-        var squares = document.getElementsByClassName("gamecell");
-        for (var i = 0; i < squares.length; i++) {
-            squares[i].removeEventListener("click", movePiece);
-        }
-    };
-
     toggleSelect();
 
     // If a piece is selected, listen for move choice
     if (variables.pieceSelected !== "") {
         listenForMove();
-        console.log("Listening");
+        // console.log("Listening");
     } else {
         forgetListen();
-        console.log("Waiting");
+        // console.log("Waiting");
     };
 };
 
-function movePiece() {
-    var selectedpiece = document.getElementsByClassName("selected")[0].id;
-    var resultpos = variables.destination
-    console.log(`Selected: ${selectedpiece}`);
-    console.log(`Destination: ${resultpos}`);
-    variables.turnnumber ++;
-    console.log(`Turn number: ${variables.turnnumber}`);
+function movePiece(evt) {
+    var selectedpiece = document.getElementsByClassName("selected")[0];
+    var destinationcell = evt.target;
+    var isavailable = false;
+
+    if (destinationcell.classList.contains("free") == true){
+        isavailable = true
+    } else {
+        isavailable = false
+    };
+
+    if (isavailable == true){
+        destinationcell.appendChild(selectedpiece);
+        endTurn();
+    }
+
+    function endTurn(){
+        forgetListen()
+        squareAvailablity()
+        var movedpiece = document.getElementById(variables.pieceSelected)
+        movedpiece.classList.remove("selected")
+        variables.pieceSelected = "";
+        variables.turnnumber ++;
+    }
 };
 
 function addDestinationOnClick(){
