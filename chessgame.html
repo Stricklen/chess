@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess Game</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="chess-game.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="game-title">Chess</h1>
+      <h3 id="game-player2">Player 2</h3>
+      <div class="chess-board">
+        <!-- row 8 -->
+        <div class="cellLabel">8</div>
+        <div class="gamecell light whitepromo" id="a_8"></div>
+        <div class="gamecell dark whitepromo" id="b_8"></div>
+        <div class="gamecell light whitepromo" id="c_8"></div>
+        <div class="gamecell dark whitepromo" id="d_8"></div>
+        <div class="gamecell light whitepromo" id="e_8"></div>
+        <div class="gamecell dark whitepromo" id="f_8"></div>
+        <div class="gamecell light whitepromo" id="g_8"></div>
+        <div class="gamecell dark whitepromo" id="h_8"></div>
+        <div class="cellLabel turner" id="blackturn"></div>
+        <br />
+
+        <!-- row 7 -->
+        <div class="cellLabel">7</div>
+        <div class="gamecell dark" id="a_7"></div>
+        <div class="gamecell light" id="b_7"></div>
+        <div class="gamecell dark" id="c_7"></div>
+        <div class="gamecell light" id="d_7"></div>
+        <div class="gamecell dark" id="e_7"></div>
+        <div class="gamecell light" id="f_7"></div>
+        <div class="gamecell dark" id="g_7"></div>
+        <div class="gamecell light" id="h_7"></div>
+        <div class="cellLabel"></div>
+        <br />
+
+        <!-- row 6 -->
+        <div class="cellLabel">6</div>
+        <div class="gamecell light" id="a_6"></div>
+        <div class="gamecell dark" id="b_6"></div>
+        <div class="gamecell light" id="c_6"></div>
+        <div class="gamecell dark" id="d_6"></div>
+        <div class="gamecell light" id="e_6"></div>
+        <div class="gamecell dark" id="f_6"></div>
+        <div class="gamecell light" id="g_6"></div>
+        <div class="gamecell dark" id="h_6"></div>
+        <div class="cellLabel"></div>
+        <br />
+
+        <!-- row 5 -->
+        <div class="cellLabel">5</div>
+        <div class="gamecell dark" id="a_5"></div>
+        <div class="gamecell light" id="b_5"></div>
+        <div class="gamecell dark" id="c_5"></div>
+        <div class="gamecell light" id="d_5"></div>
+        <div class="gamecell dark" id="e_5"></div>
+        <div class="gamecell light" id="f_5"></div>
+        <div class="gamecell dark" id="g_5"></div>
+        <div class="gamecell light" id="h_5"></div>
+        <div class="cellLabel gamebutton" id="home-btn">
+          <a href="/index.html">
+            <img src="/icons/home.png" alt="home-btn">
+          </a>
+        </div>
+        <br />
+
+        <!-- row 4 -->
+        <div class="cellLabel">4</div>
+        <div class="gamecell light" id="a_4"></div>
+        <div class="gamecell dark" id="b_4"></div>
+        <div class="gamecell light" id="c_4"></div>
+        <div class="gamecell dark" id="d_4"></div>
+        <div class="gamecell light" id="e_4"></div>
+        <div class="gamecell dark" id="f_4"></div>
+        <div class="gamecell light" id="g_4"></div>
+        <div class="gamecell dark" id="h_4"></div>
+        <div class="cellLabel gamebutton" id="reload-btn">
+          <a href="/chess-game.html">
+            <img src="/icons/replay.png" alt="replay button">
+          </a>
+        </div>
+        <br />
+
+        <!-- row 3 -->
+        <div class="cellLabel">3</div>
+        <div class="gamecell dark" id="a_3"></div>
+        <div class="gamecell light" id="b_3"></div>
+        <div class="gamecell dark" id="c_3"></div>
+        <div class="gamecell light" id="d_3"></div>
+        <div class="gamecell dark" id="e_3"></div>
+        <div class="gamecell light" id="f_3"></div>
+        <div class="gamecell dark" id="g_3"></div>
+        <div class="gamecell light" id="h_3"></div>
+        <div class="cellLabel"></div>
+        <br />
+
+        <!-- row 2 -->
+        <div class="cellLabel">2</div>
+        <div class="gamecell light" id="a_2"></div>
+        <div class="gamecell dark" id="b_2"></div>
+        <div class="gamecell light" id="c_2"></div>
+        <div class="gamecell dark" id="d_2"></div>
+        <div class="gamecell light" id="e_2"></div>
+        <div class="gamecell dark" id="f_2"></div>
+        <div class="gamecell light" id="g_2"></div>
+        <div class="gamecell dark" id="h_2"></div>
+        <div class="cellLabel"></div>
+        <br />
+
+        <!-- row 1 -->
+        <div class="cellLabel">1</div>
+        <div class="gamecell dark blackpromo" id="a_1"></div>
+        <div class="gamecell light blackpromo" id="b_1"></div>
+        <div class="gamecell dark blackpromo" id="c_1"></div>
+        <div class="gamecell light blackpromo" id="d_1"></div>
+        <div class="gamecell dark blackpromo" id="e_1"></div>
+        <div class="gamecell light blackpromo" id="f_1"></div>
+        <div class="gamecell dark blackpromo" id="g_1"></div>
+        <div class="gamecell light blackpromo" id="h_1"></div>
+        <div class="cellLabel turner" id="whiteturn"></div>
+        <br />
+
+        <!-- row 0 -->
+        <div class="cellLabel"></div>
+        <div class="cellLabel">a</div>
+        <div class="cellLabel">b</div>
+        <div class="cellLabel">c</div>
+        <div class="cellLabel">d</div>
+        <div class="cellLabel">e</div>
+        <div class="cellLabel">f</div>
+        <div class="cellLabel">g</div>
+        <div class="cellLabel">h</div>
+        <div class="cellLabel"></div>
+        <br />
+      </div>
+      <h3 id="game-player1">Player 1</h3>
+      <!-- <a href="/" class="btn">Home</a> -->
+    </div>
+    <script src="/chess-game.js"></script>
+  </body>
+</html>
