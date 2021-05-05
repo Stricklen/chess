@@ -383,11 +383,21 @@ function castleListen() {
         for (i=0; i< castlerswhite.length; i++) {
             castlerswhite[i].addEventListener("click", castleMechanic)
         }
+        if (variables.pieceSelected == "w_rook1" || variables.pieceSelected == "w_rook2"){
+            localStorage.setItem("castle_rook", variables.pieceSelected)
+        }
     } else if (castlecandidate.classList.contains("cancastle") == true && castlecandidate.classList.contains("black") == true) {
-        console.log("Black Listens")
+        var castlersblack = document.getElementsByClassName("black cancastle")
+        for (i=0; i< castlersblack.length; i++) {
+            castlersblack[i].addEventListener("click", castleMechanic)
+        }
+        if (variables.pieceSelected == "b_rook1" || variables.pieceSelected == "b_rook2"){
+            localStorage.setItem("castle_rook", variables.pieceSelected)
+        }
     } else {
         console.log("Failed to listen for castle")
     }
+    
 }
 
 function castleForget() {
@@ -401,7 +411,55 @@ function castleForget() {
 }
 
 function castleMechanic(evt){
-    console.log("CastleMechanic")
+    var targetking = evt.target.parentElement;
+    var targetrook = localStorage.getItem("castle_rook")
+
+    if (targetrook == targetking.id) {
+        return
+    }
+
+    // White castles:
+    if (targetking.classList.contains("white") == true) {
+        if (targetrook == "w_rook1") {
+            var kingsquare = document.getElementById("c_1");
+            var rooksquare = document.getElementById("d_1");
+            var rook = document.getElementById(targetrook);
+
+            kingsquare.appendChild(targetking);
+            rooksquare.appendChild(rook);
+            endTurn()
+        };
+        if (targetrook == "w_rook2") {
+            var kingsquare = document.getElementById("g_1");
+            var rooksquare = document.getElementById("f_1");
+            var rook = document.getElementById(targetrook);
+
+            kingsquare.appendChild(targetking);
+            rooksquare.appendChild(rook);
+            endTurn()
+        };
+    }
+    // Black castles:
+    if (targetking.classList.contains("black") == true) {
+        if (targetrook == "b_rook1") {
+            var kingsquare = document.getElementById("c_8");
+            var rooksquare = document.getElementById("d_8");
+            var rook = document.getElementById(targetrook);
+
+            kingsquare.appendChild(targetking);
+            rooksquare.appendChild(rook);
+            endTurn()
+        };
+        if (targetrook == "b_rook2") {
+            var kingsquare = document.getElementById("g_8");
+            var rooksquare = document.getElementById("f_8");
+            var rook = document.getElementById(targetrook);
+
+            kingsquare.appendChild(targetking);
+            rooksquare.appendChild(rook);
+            endTurn()
+        };
+    }
 }
 
 function movePiece(evt) {
@@ -429,6 +487,7 @@ function movePiece(evt) {
 
 function endTurn(){
     forgetMove();
+    castleForget();
     squareAvailablity();
     var movedpiece = document.getElementById(variables.pieceSelected);
     movedpiece.classList.remove("selected");
