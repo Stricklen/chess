@@ -413,6 +413,8 @@ function capturePiece(evt){
     capturesquare.removeChild(piececaptured)
     capturesquare.appendChild(capturingpiece)
 
+    endTurn()
+
     // console.log(capturingpiece)
 }
 
