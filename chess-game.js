@@ -19,6 +19,8 @@ let variables = {
     castlers: ["w_rook1","w_rook2","w_king","b_rook1","b_rook2","b_king"],
     whitecastlers: ["w_rook1","w_rook2","w_king"],
     blackcastlers: ["b_rook1","b_rook2","b_king"],
+    whitepawns: ["w_pawn1", "w_pawn2", "w_pawn3", "w_pawn4", "w_pawn5", "w_pawn6", "w_pawn7", "w_pawn8" ],
+    blackpawns: ["b_pawn1", "b_pawn2", "b_pawn3", "b_pawn4", "b_pawn5", "b_pawn6", "b_pawn7", "b_pawn8" ],
     pieces: {
         w_pawn1: {
             startPosition: "a_2",
@@ -462,6 +464,35 @@ function castleMechanic(evt){
     }
 }
 
+function whitePromoCheck(destinationcell){
+    var promosquares = document.getElementsByClassName("whitepromo")
+    var topromote = false;
+    for (i=0;i<promosquares.length;i++) {
+        if (destinationcell.id == promosquares[i].id) {
+            topromote = true;
+        }
+    }
+    if (topromote == false) {
+        return
+    }
+    console.log("White pawn promoted")
+    
+};
+
+function blackPromoCheck(destinationcell){
+    var promosquares = document.getElementsByClassName("blackpromo")
+    var topromote = false;
+    for (i=0;i<promosquares.length;i++) {
+        if (destinationcell.id == promosquares[i].id) {
+            topromote = true;
+        }
+    }
+    if (topromote == false) {
+        return
+    }
+    console.log("Black pawn promoted")
+};
+
 function movePiece(evt) {
     var selectedpiece = document.getElementsByClassName("selected")[0];
     var destinationcell = evt.target;
@@ -480,6 +511,12 @@ function movePiece(evt) {
                 console.log(`${selectedpiece.id} can't castle anymore`)
             }
             selectedpiece.classList.remove("cancastle")
+        }
+        if (variables.whitepawns.includes(selectedpiece.id) == true) {
+            whitePromoCheck(destinationcell);
+        }
+        if (variables.blackpawns.includes(selectedpiece.id) == true) {
+            blackPromoCheck(destinationcell);
         }
         endTurn();
     }
@@ -522,6 +559,13 @@ function capturePiece(evt){
             console.log(`${capturingpiece.id} can't castle anymore`)
         }
         capturingpiece.classList.remove("cancastle")
+    }
+
+    if (variables.whitepawns.includes(capturingpiece.id) == true) {
+        whitePromoCheck(capturesquare);
+    }
+    if (variables.blackpawns.includes(capturingpiece.id) == true) {
+        blackPromoCheck(capturesquare);
     }
 
     endTurn()
