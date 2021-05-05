@@ -1,12 +1,10 @@
 function setUsers() {
     var user1 = String(localStorage.getItem("player-1"));
     if (user1 !== ""){
-        console.log("Player 1 - " + user1);
         document.getElementById("game-player1").innerText = user1;
     }
     var user2 = String(localStorage.getItem("player-2"));
     if (user2 !== ""){
-        console.log("Player 2 - " + user2)
         document.getElementById("game-player2").innerText = user2;
     }
     
@@ -18,6 +16,9 @@ let variables = {
     isSelected: false,
     pieceSelected: "",
     availableSquares: [],
+    castlers: ["w_rook1","w_rook2","w_king","b_rook1","b_rook2","b_king"],
+    whitecastlers: ["w_rook1","w_rook2","w_king"],
+    blackcastlers: ["b_rook1","b_rook2","b_king"],
     pieces: {
         w_pawn1: {
             startPosition: "a_2",
@@ -294,11 +295,34 @@ function loadPieces() {
         var img = document.createElement("img");
         img.src = variables.pieces[gamepiece].img;
 
+        // Selecting the rooks and kings to get cancastle class
+        if (variables.castlers.includes(gamepiece) == true) {
+            newDiv.classList.add("cancastle")
+        }
+
         square.appendChild(newDiv);
         newDiv.appendChild(img)
     }
     document.getElementById("blackturn").classList.add("turn")
 };
+
+function squareAvailablity(){
+    var squares = document.getElementsByClassName("gamecell")
+    for (var i=0; i < squares.length; i++) {
+        if (squares[i].hasChildNodes() == false) {
+            squares[i].classList.add("free")
+        } else {
+            squares[i].classList.remove("free")
+        }
+    };
+
+    var cancapture = document.getElementsByClassName(whoseTurn())
+    for (var i=0; i < cancapture.length; i++) {
+        cancapture[i].parentElement.classList.add("free")
+    }
+    
+    // console.log(`${whoseTurn()} can be catured`)
+}
 
 function listenForMove() {
     // Add event listener to all gamecells
@@ -316,7 +340,9 @@ function forgetMove(){
 };
 
 function selectPiece(evt) {
-    var thing = evt.target.parentElement
+    var smallthing = evt.target
+    var thing = smallthing.parentElement
+
 
     function toggleSelect() {
         // Toggling selection of piece
@@ -338,13 +364,45 @@ function selectPiece(evt) {
 
     // If a piece is selected, listen for move choice
     if (variables.pieceSelected !== "") {
+        if (variables.castlers.includes(thing.id) == true) {
+            castleListen()
+        }
         listenForMove();
-        // console.log("Listening");
     } else {
+        if (variables.castlers.includes(thing.id) == true) {
+            castleForget();
+        }
         forgetMove();
-        // console.log("Waiting");
     };
 };
+
+function castleListen() {
+    var castlecandidate = document.getElementById(variables.pieceSelected)
+    if (castlecandidate.classList.contains("cancastle") == true && castlecandidate.classList.contains("white") == true) {
+        var castlerswhite = document.getElementsByClassName("white cancastle")
+        for (i=0; i< castlerswhite.length; i++) {
+            castlerswhite[i].addEventListener("click", castleMechanic)
+        }
+    } else if (castlecandidate.classList.contains("cancastle") == true && castlecandidate.classList.contains("black") == true) {
+        console.log("Black Listens")
+    } else {
+        console.log("Failed to listen for castle")
+    }
+}
+
+function castleForget() {
+    var castlecandidate = document.getElementsByClassName("cancastle")
+    if (castlecandidate == null) {
+        return
+    }
+    for (i=0; i< castlecandidate.length; i++) {
+        castlecandidate[i].removeEventListener("click", castleMechanic)
+    }
+}
+
+function castleMechanic(evt){
+    console.log("CastleMechanic")
+}
 
 function movePiece(evt) {
     var selectedpiece = document.getElementsByClassName("selected")[0];
@@ -359,36 +417,23 @@ function movePiece(evt) {
 
     if (isavailable == true){
         destinationcell.appendChild(selectedpiece);
+        if (variables.castlers.includes(selectedpiece.id) == true) {
+            if (selectedpiece.classList.contains("cancastle") == true) {
+                console.log(`${selectedpiece.id} can't castle anymore`)
+            }
+            selectedpiece.classList.remove("cancastle")
+        }
         endTurn();
     }
 };
 
 function endTurn(){
-    console.log("ending turn")
     forgetMove();
     squareAvailablity();
     var movedpiece = document.getElementById(variables.pieceSelected);
     movedpiece.classList.remove("selected");
     variables.pieceSelected = "";
     nextTurnCalc();
-}
-
-function squareAvailablity(){
-    var squares = document.getElementsByClassName("gamecell")
-    for (var i=0; i < squares.length; i++) {
-        if (squares[i].hasChildNodes() == false) {
-            squares[i].classList.add("free")
-        } else {
-            squares[i].classList.remove("free")
-        }
-    };
-
-    var cancapture = document.getElementsByClassName(whoseTurn())
-    for (var i=0; i < cancapture.length; i++) {
-        cancapture[i].parentElement.classList.add("free")
-    }
-    
-    // console.log(`${whoseTurn()} can be catured`)
 }
 
 function whoseTurn() {
@@ -412,6 +457,13 @@ function capturePiece(evt){
 
     capturesquare.removeChild(piececaptured)
     capturesquare.appendChild(capturingpiece)
+
+    if (variables.castlers.includes(capturingpiece.id) == true) {
+        if (capturingpiece.classList.contains("cancastle") == true) {
+            console.log(`${capturingpiece.id} can't castle anymore`)
+        }
+        capturingpiece.classList.remove("cancastle")
+    }
 
     endTurn()
 
@@ -448,7 +500,6 @@ function toggleTurn() {
     for (i=0; i < turnlights.length; i++){
         turnlights[i].classList.toggle("turn")
     }
-    console.log(`Turn: ${turn}`)
 }
 
 function nextTurnCalc() {
@@ -460,7 +511,6 @@ function nextTurnCalc() {
 
     toggleTurn();
 }
-
 
 function main() {
     setUsers();
