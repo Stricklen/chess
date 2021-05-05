@@ -361,11 +361,10 @@ function movePiece(evt) {
         destinationcell.appendChild(selectedpiece);
         endTurn();
     }
-
-    endTurn()
 };
 
 function endTurn(){
+    console.log("ending turn")
     forgetMove();
     squareAvailablity();
     var movedpiece = document.getElementById(variables.pieceSelected);
