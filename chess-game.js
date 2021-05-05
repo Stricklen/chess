@@ -476,7 +476,10 @@ function whitePromoCheck(destinationcell){
         return
     }
     console.log("White pawn promoted")
-    
+    var typeofpiece = "";
+    while (typeofpiece == "") {
+        typeofpiece = prompt("Please choose the type of piece you'd like to promote to")
+    }
 };
 
 function blackPromoCheck(destinationcell){
