@@ -297,6 +297,7 @@ function loadPieces() {
         square.appendChild(newDiv);
         newDiv.appendChild(img)
     }
+    document.getElementById("blackturn").classList.add("turn")
 };
 
 function listenForMove() {
@@ -307,7 +308,7 @@ function listenForMove() {
     }
 };
 
-function forgetListen(){
+function forgetMove(){
     var squares = document.getElementsByClassName("gamecell");
     for (var i = 0; i < squares.length; i++) {
         squares[i].removeEventListener("click", movePiece);
@@ -340,7 +341,7 @@ function selectPiece(evt) {
         listenForMove();
         // console.log("Listening");
     } else {
-        forgetListen();
+        forgetMove();
         // console.log("Waiting");
     };
 };
@@ -361,15 +362,17 @@ function movePiece(evt) {
         endTurn();
     }
 
-    function endTurn(){
-        forgetListen();
-        squareAvailablity();
-        var movedpiece = document.getElementById(variables.pieceSelected);
-        movedpiece.classList.remove("selected");
-        variables.pieceSelected = "";
-        nextTurnCalc();
-    }
+    endTurn()
 };
+
+function endTurn(){
+    forgetMove();
+    squareAvailablity();
+    var movedpiece = document.getElementById(variables.pieceSelected);
+    movedpiece.classList.remove("selected");
+    variables.pieceSelected = "";
+    nextTurnCalc();
+}
 
 function squareAvailablity(){
     var squares = document.getElementsByClassName("gamecell")
@@ -399,23 +402,62 @@ function whoseTurn() {
     };
 }
 
-function nextTurnCalc() {
-    variables.turnnumber ++;
+function capturePiece(evt){
+    if (variables.pieceSelected == "") {
+        return
+    }
+    var imgcaptured = evt.target
+    var piececaptured = imgcaptured.parentElement
+    var capturesquare = piececaptured.parentElement
+    var capturingpiece = document.getElementById(variables.pieceSelected)
+
+    capturesquare.removeChild(piececaptured)
+    capturesquare.appendChild(capturingpiece)
+
+    // console.log(capturingpiece)
+}
+
+function endTurnListeners() {
     var pieces = document.getElementsByClassName("piece");
     for (i=0; i < pieces.length; i++) {
         pieces[i].removeEventListener("click", selectPiece)
     }
-    
 
-    var nextturn = whoseTurn();
+    var oldcappiece = document.getElementsByClassName(whoseTurn());
+    for (i=0; i < oldcappiece.length; i++) {
+        oldcappiece[i].addEventListener("click", capturePiece);
+    }
+}
 
-    var availablepieces = document.getElementsByClassName(nextturn);
+function startTurnListeners() {
+
+    var availablepieces = document.getElementsByClassName(whoseTurn());
     for (i=0; i < availablepieces.length; i++) {
         availablepieces[i].addEventListener("click", selectPiece);
-        console.log("hello")
     }
+    var oldcappiece = document.getElementsByClassName(whoseTurn());
+    for (i=0; i < oldcappiece.length; i++) {
+        oldcappiece[i].removeEventListener("click", capturePiece);
+    }
+}
 
-    // console.log(`Turn: ${nextturn}`);
+function toggleTurn() {
+    var turn = whoseTurn()
+    var turnlights = document.getElementsByClassName("turner")
+    for (i=0; i < turnlights.length; i++){
+        turnlights[i].classList.toggle("turn")
+    }
+    console.log(`Turn: ${turn}`)
+}
+
+function nextTurnCalc() {
+    endTurnListeners();
+    // Current turn ends 
+    variables.turnnumber ++;
+    // Next turn starts
+    startTurnListeners();
+
+    toggleTurn();
 }
 
 
