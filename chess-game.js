@@ -520,9 +520,6 @@ function blackPromoCheck(destinationcell){
     while (variables.canpromoteto.includes(typeofpiece) == false) {
         var thing = prompt("Please choose the type of piece you'd like to promote to");
         typeofpiece = thing.toLowerCase();
-        if (typeofpiece = "stop") {
-            break
-        }
     }
     promopiece.removeChild(promopiece.childNodes[0])
     var img = document.createElement("img")
