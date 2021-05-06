@@ -21,6 +21,7 @@ let variables = {
     blackcastlers: ["b_rook1","b_rook2","b_king"],
     whitepawns: ["w_pawn1", "w_pawn2", "w_pawn3", "w_pawn4", "w_pawn5", "w_pawn6", "w_pawn7", "w_pawn8" ],
     blackpawns: ["b_pawn1", "b_pawn2", "b_pawn3", "b_pawn4", "b_pawn5", "b_pawn6", "b_pawn7", "b_pawn8" ],
+    canpromoteto: ["queen", "rook", "knight", "bishop"],
     pieces: {
         w_pawn1: {
             startPosition: "a_2",
@@ -296,6 +297,7 @@ function loadPieces() {
 
         var img = document.createElement("img");
         img.src = variables.pieces[gamepiece].img;
+        img.classList.add(`i_${variables.pieces[gamepiece].piece}`)
 
         // Selecting the rooks and kings to get cancastle class
         if (variables.castlers.includes(gamepiece) == true) {
@@ -467,6 +469,7 @@ function castleMechanic(evt){
 function whitePromoCheck(destinationcell){
     var promosquares = document.getElementsByClassName("whitepromo")
     var topromote = false;
+    var promopiece = document.getElementById(variables.pieceSelected)
     for (i=0;i<promosquares.length;i++) {
         if (destinationcell.id == promosquares[i].id) {
             topromote = true;
@@ -477,14 +480,33 @@ function whitePromoCheck(destinationcell){
     }
     console.log("White pawn promoted")
     var typeofpiece = "";
-    while (typeofpiece == "") {
-        typeofpiece = prompt("Please choose the type of piece you'd like to promote to")
+    while (variables.canpromoteto.includes(typeofpiece) == false) {
+        var thing = prompt("Please choose the type of piece you'd like to promote to");
+        typeofpiece = thing.toLowerCase();
     }
+    promopiece.removeChild(promopiece.childNodes[0])
+    var img = document.createElement("img")
+    switch (typeofpiece) {
+        case "queen":
+            img.src = "/pieces/wQueen.png";
+            break;
+        case "rook":
+            img.src = "/pieces/wRook.png";
+            break;
+        case "bishop":
+            img.src = "/pieces/wBishop.png";
+            break;
+        case "knight":
+            img.src = "/pieces/wKnight.png";
+            break;
+    }
+    promopiece.appendChild(img)
 };
 
 function blackPromoCheck(destinationcell){
     var promosquares = document.getElementsByClassName("blackpromo")
     var topromote = false;
+    var promopiece = document.getElementById(variables.pieceSelected)
     for (i=0;i<promosquares.length;i++) {
         if (destinationcell.id == promosquares[i].id) {
             topromote = true;
@@ -494,6 +516,31 @@ function blackPromoCheck(destinationcell){
         return
     }
     console.log("Black pawn promoted")
+    var typeofpiece = "";
+    while (variables.canpromoteto.includes(typeofpiece) == false) {
+        var thing = prompt("Please choose the type of piece you'd like to promote to");
+        typeofpiece = thing.toLowerCase();
+        if (typeofpiece = "stop") {
+            break
+        }
+    }
+    promopiece.removeChild(promopiece.childNodes[0])
+    var img = document.createElement("img")
+    switch (typeofpiece) {
+        case "queen":
+            img.src = "/pieces/bQueen.png";
+            break;
+        case "rook":
+            img.src = "/pieces/bRook.png";
+            break;
+        case "bishop":
+            img.src = "/pieces/bBishop.png";
+            break;
+        case "knight":
+            img.src = "/pieces/bKnight.png";
+            break;
+    }
+    promopiece.appendChild(img)
 };
 
 function movePiece(evt) {
